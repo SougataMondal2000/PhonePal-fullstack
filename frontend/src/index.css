@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  background-color: rgb(243, 243, 243);
+}
+
+h1,
+h2 {
+  font-family: "Raleway", sans-serif;
+}
+
+hr {
+  border: dotted black 0.65vh;
+  border-bottom: none;
+  width: 4%;
+  margin: 4vh auto;
+}
+
+@keyframes typing-effect {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+#hero {
+  animation: typing-effect 0.5s ease-in-out forwards;
+}
+
+#why-us {
+  animation: typing-effect 1s ease-in-out forwards;
+}
+
+#our-choice {
+  animation: typing-effect 1.5s ease-in-out forwards;
+}
+
+#contact-us {
+  animation: typing-effect 2s ease-in-out forwards;
+}
