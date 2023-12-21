@@ -1,7 +1,7 @@
 
 const TestimonialCard = () => {
   return (
-    <div className="mx-auto max-w-xl rounded-md shadow-2xl border-t border-gray-100 p-1">
+    <div className="mx-auto max-w-xl rounded-md shadow-lg lg:shadow-2xl border-t border-gray-100 p-1">
       <div className="flex flex-col rounded-md bg-white">
         <div className="flex flex-1 flex-col justify-between p-8">
           <div className="mb-4 flex space-x-2">

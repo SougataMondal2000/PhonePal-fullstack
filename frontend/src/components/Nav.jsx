@@ -32,8 +32,12 @@ const Nav = () => {
             ))}
           </ul>
           <div className="flex justify-center items-center gap-2 max-lg:hidden">
-            <Button label="Sign In"></Button>
-            <Button label="Sign Up"></Button>
+            <Link to="/signup">
+              <Button label="Sign Up"></Button>
+            </Link>
+            <Link to="/signin">
+              <Button label="Sign In"></Button>
+            </Link>
           </div>
           <div className="hidden max-lg:block cursor-pointer">
             <img
