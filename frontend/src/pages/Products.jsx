@@ -111,7 +111,7 @@ const Products = () => {
               </div>
             ))}
           </div>
-          <div className="h-auto w-full rounded-lg px-4 py-2 lg:col-span-9 lg:h-full flex flex-wrap lg:justify-start justify-center gap-4">
+          <div className="h-auto rounded-lg px-4 py-2 lg:col-span-9 lg:h-full flex flex-wrap lg:justify-start max-md:justify-center lg:gap-10 gap-4">
             <ProductCard />
             <ProductCard />
             <ProductCard />

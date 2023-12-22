@@ -24,14 +24,6 @@ hr {
   to { opacity: 1; }
 }
 
-#hero {
-  animation: typing-effect 0.5s ease-in-out forwards;
-}
-
-#why-us {
-  animation: typing-effect 1s ease-in-out forwards;
-}
-
 #our-choice {
   animation: typing-effect 1.5s ease-in-out forwards;
 }

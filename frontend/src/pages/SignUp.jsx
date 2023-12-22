@@ -1,41 +1,41 @@
-// import axios from "axios";
+import axios from "axios";
 import { useState } from "react";
-import Button from "../components/Button";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-//   const [error, setError] = useState(false);
+  const [error, setError] = useState(false);
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     setError(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(false);
 
-//     try {
-//       const res = await axios.post(
-//         "http://localhost:5000/server/auth/register",
-//         {
-//           username,
-//           email,
-//           password,
-//         }
-//       );
-//       res.data && window.location.replace("/login");
-//     } catch (err) {
-//       setError(true);
-//     }
-//   };
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/server/auth/register",
+        {
+          username,
+          email,
+          password,
+        }
+      );
+      res.data && window.location.replace("/login");
+    } catch (err) {
+      setError(true);
+    }
+  };
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center">
       <img
         src="/assets/Logo.png"
         alt="Logo"
-        className="w-auto h-14 mb-4"
+        className="w-auto h-14 mb-4 rounded-full bg-transparent"
       />
-      <div className="w-full max-w-md rounded-md shadow-xl p-8">
-        <h2 className="text-3xl font-bold text-gray-800 mb-4 text-center">Sign Up</h2>
+      <div className="w-full max-w-md rounded-md lg:shadow-md p-8">
+        <h2 className="text-3xl font-bold text-gray-800 mb-4">Sign Up</h2>
 
         <form action="/signup" method="post" className="space-y-4">
           <div className="flex flex-col">
@@ -86,16 +86,17 @@ const SignUp = () => {
             />
           </div>
 
-          <div className="flex justify-center items-center"><Button label="Sign Up"></Button></div>
-          
+          <button
+            className="h-10 bg-gradient-to-br from-black to-gray-500 px-2 py-1 text-white hover:from-gray-500 hover:to-black hover:shadow-3xl rounded-md w-full"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Sign Up
+          </button>
         </form>
-
-        <a
-          href="/login"
-          className="block text-center mt-4 text-gray-500 hover:text-blue-500"
-        >
-          Already have an account? Sign In
-        </a>
+        <Link to="/signin" className="block text-center mt-4 text-gray-500 hover:text-blue-500">
+          <p>Already have an account? Sign In</p>
+        </Link>
       </div>
     </main>
   );

@@ -20,7 +20,7 @@ const attr = [
 
 const WhyUs = () => {
   return (
-    <div id="why-us" className="px-4">
+    <div id="why-us" className="px-4 animate-fade-left animate-once animate-duration-[1000ms] animate-delay-200 animate-ease-linear">
       <h2 className="font-bold text-3xl text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-500 text-center">
         Why us?
       </h2>

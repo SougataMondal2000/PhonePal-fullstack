@@ -19,7 +19,7 @@ const Nav = () => {
               className="m-0 w-[50px] h-[50px] rounded-full"
             />
           </Link>
-          <ul className="flex-1 flex justify-center items-center gap-16 max-lg:hidden">
+          <ul className="flex-1 flex justify-center items-center gap-16 max-md:hidden">
             {navLinks.map((item) => (
               <li key={item.label}>
                 <a
@@ -31,7 +31,7 @@ const Nav = () => {
               </li>
             ))}
           </ul>
-          <div className="flex justify-center items-center gap-2 max-lg:hidden">
+          <div className="flex justify-center items-center gap-2 max-md:hidden">
             <Link to="/signup">
               <Button label="Sign Up"></Button>
             </Link>
@@ -39,7 +39,7 @@ const Nav = () => {
               <Button label="Sign In"></Button>
             </Link>
           </div>
-          <div className="hidden max-lg:block cursor-pointer">
+          <div className="hidden max-md:block cursor-pointer">
             <img
               src="/assets/hamburger.svg"
               alt="hamburger icon"

@@ -5,7 +5,7 @@ import OurChoice from '../sections/OurChoice'
 
 const Home = () => {
   return (
-    <div>
+    <div className='scroll-smooth'>
       <Hero/>
       <hr />
       <WhyUs/>
