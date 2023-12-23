@@ -1,39 +1,36 @@
 import { Link } from "react-router-dom";
 import Button from "./Button";
 
-const ProductCard = () => {
+const ProductCard = ({ product }) => {
   return (
-    <div className="w-[300px] rounded-md border shadow-xl">
-      <img
-        src="/assets/phone-2.jpg"
-        alt=""
-        className="h-[200px] w-full rounded-t-md object-cover"
-      />
-      <div className="p-4">
-        <h1 className="inline-flex items-center text-lg font-semibold">
-          About Macbook
-        </h1>
-        <p className="mt-3 text-sm text-gray-600">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi,
-          debitis?
-        </p>
-        <div className="mt-4">
-          <span className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900">
-            #Macbook
-          </span>
-          <span className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900">
-            #Apple
-          </span>
-          <span className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900">
-            #Laptop
-          </span>
-        </div>
-        <div className="">
-          <Link to="/product">
-            <Button label="Buy Now"></Button>
-          </Link>
-        </div>
-      </div>
+    <div>
+      <ul className="w-[300px] border shadow-xl">
+        <li key={product.id}>
+          <img
+            src={product.image}
+            alt=""
+            className="h-[200px] w-full rounded-t-lg object-cover"
+          />
+          <div className="p-4">
+            <h2 className="inline-flex items-center text-lg font-semibold">
+              {product.model}
+            </h2>
+            <p className="mt-3 text-sm text-gray-600">
+              Price: ${product.price}
+            </p>
+            <p className="mt-3 text-sm text-gray-600">
+              Processor: {product.processor}
+            </p>
+            <p className="mt-3 text-sm text-gray-600">OS: {product.os}</p>
+            <p className="mt-3 text-sm text-gray-600">RAM: {product.ram} GB</p>
+            <div className="mt-2">
+              <Link to={`/product?id=${product.id}`}>
+                <Button label="Buy Now"></Button>
+              </Link>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
   );
 };

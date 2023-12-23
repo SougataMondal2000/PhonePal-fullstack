@@ -21,7 +21,7 @@ const SignUp = () => {
           password,
         }
       );
-      res.data && window.location.replace("/login");
+      res.data && window.location.replace("/signin");
     } catch (err) {
       setError(true);
     }
@@ -94,7 +94,10 @@ const SignUp = () => {
             Sign Up
           </button>
         </form>
-        <Link to="/signin" className="block text-center mt-4 text-gray-500 hover:text-blue-500">
+        <Link
+          to="/signin"
+          className="block text-center mt-4 text-gray-500 hover:text-blue-500"
+        >
           <p>Already have an account? Sign In</p>
         </Link>
       </div>

@@ -7,6 +7,7 @@ const dummyProducts = [
     price: "1199.00",
     processor: "A16 Bionic",
     os: "iOS",
+    ram: 4,
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ const dummyProducts = [
     price: "1299.00",
     processor: "Snapdragon 8 Gen 2",
     os: "Android",
+    ram: 12,
   },
   {
     id: 3,
@@ -25,6 +27,7 @@ const dummyProducts = [
     price: "899.00",
     processor: "Tensor 3",
     os: "Android",
+    ram: 8,
   },
   {
     id: 4,
@@ -34,6 +37,7 @@ const dummyProducts = [
     price: "999.00",
     processor: "Snapdragon 8 Gen 2",
     os: "Android",
+    ram: 6,
   },
   {
     id: 5,
@@ -43,6 +47,7 @@ const dummyProducts = [
     price: "799.00",
     processor: "Snapdragon 8 Gen 2 Plus",
     os: "Android",
+    ram: 8,
   },
   {
     id: 6,
@@ -52,6 +57,7 @@ const dummyProducts = [
     price: "1099.00",
     processor: "Snapdragon 8 Gen 1 Plus",
     os: "Android",
+    ram: 12,
   },
   {
     id: 7,
@@ -61,6 +67,7 @@ const dummyProducts = [
     price: "899.00",
     processor: "MediaTek Dimensity 9000+",
     os: "Android",
+    ram: 6,
   },
   {
     id: 8,
@@ -70,6 +77,7 @@ const dummyProducts = [
     price: "699.00",
     processor: "Snapdragon 8 Gen 1",
     os: "Android",
+    ram: 8,
   },
   {
     id: 9,
@@ -79,6 +87,7 @@ const dummyProducts = [
     price: "1399.00",
     processor: "Snapdragon 8 Gen 2",
     os: "Android",
+    ram: 4,
   },
   {
     id: 10,
@@ -88,6 +97,7 @@ const dummyProducts = [
     price: "749.00",
     processor: "Snapdragon 8 Gen 1",
     os: "Android",
+    ram: 6,
   },
   {
     id: 11,
@@ -96,6 +106,8 @@ const dummyProducts = [
       "https://img.freepik.com/free-photo/smartphone-with-blank-black-screen-innovative-future-technology_53876-97896.jpg?w=740&t=st=1703278639~exp=1703279239~hmac=d35a1e4f8560ec64d77e0c306aa1e226e6751e4e480890e2669d4fa23bdcf497",
     price: "1099.00",
     processor: "Snapdragon 8 Gen 2",
+    os: "Android",
+    ram: 12,
   },
 ];
 

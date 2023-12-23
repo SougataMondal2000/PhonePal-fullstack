@@ -1,45 +1,74 @@
 import { ChevronDown } from "lucide-react";
+import { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
-
 const filters = [
   {
-    id: "color",
-    name: "Color",
+    id: "OS",
+    name: "OS",
     options: [
-      { value: "white", label: "White" },
-      { value: "beige", label: "Beige" },
-      { value: "blue", label: "Blue" },
-      { value: "brown", label: "Brown" },
-      { value: "green", label: "Green" },
-      { value: "purple", label: "Purple" },
+      { value: "android", label: "Android" },
+      { value: "ios", label: "iOS" },
     ],
   },
   {
-    id: "category",
-    name: "Category",
+    id: "RAM",
+    name: "RAM",
     options: [
-      { value: "new-arrivals", label: "All New Arrivals" },
-      { value: "tees", label: "Tees" },
-      { value: "crewnecks", label: "Crewnecks" },
-      { value: "sweatshirts", label: "Sweatshirts" },
-      { value: "pants-shorts", label: "Pants & Shorts" },
-    ],
-  },
-  {
-    id: "sizes",
-    name: "Sizes",
-    options: [
-      { value: "xs", label: "XS" },
-      { value: "s", label: "S" },
-      { value: "m", label: "M" },
-      { value: "l", label: "L" },
-      { value: "xl", label: "XL" },
-      { value: "2xl", label: "2XL" },
+      { value: "4GB", label: "4GB" },
+      { value: "6GB", label: "6GB" },
+      { value: "8GB", label: "8GB" },
+      { value: "12GB", label: "12GB" },
     ],
   },
 ];
 
 const Products = () => {
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState([]);
+
+  const handleButtonClick = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleOptionToggle = (option) => {
+    const newSelectedOptions = selectedOption.includes(option)
+      ? selectedOption.filter((o) => o !== option)
+      : [selectedOption, option];
+    setSelectedOption(newSelectedOptions);
+  };
+
+  // const handleOptionSelect = (option) => {
+  //   setSelectedOption(option);
+  //   setIsDropdownOpen(false);
+  //   console.log("Sorting by:", option);
+  // };
+
+  products.forEach((product) => {
+    console.log("Product ID:", product.id);
+    // ... use the ID as needed
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch("http://localhost:3000/api/dummyproducts");
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <section className="w-full">
       <div className="mx-auto max-w-full px-2 py-10 lg:px-20">
@@ -49,30 +78,56 @@ const Products = () => {
               Products
             </h1>
           </div>
-          <div className="mt-6 flex items-center  pt-2 md:mt-0 md:space-x-4  md:pt-0">
+          <div className="mt-6 flex justify-between items-center pt-2 md:mt-0 md:space-x-4  md:pt-0">
+            <div className="dropdown">
+              <button
+                type="button"
+                className="inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                onClick={handleButtonClick}
+              >
+                Sort <ChevronDown className="ml-2 h-4 w-4" />
+              </button>
+              {isDropdownOpen && (
+                <ul className="text-sm">
+                  <li key="price-low-to-high">
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={selectedOption.includes("price: low to high")}
+                        onChange={() =>
+                          handleOptionToggle("price: low to high")
+                        }
+                      />
+                      Price: Low to High
+                    </label>
+                  </li>
+                  <li key="price-high-to-low">
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={selectedOption.includes("price: high to low")}
+                        onChange={() =>
+                          handleOptionToggle("price: high to low")
+                        }
+                      />
+                      Price: High to Low
+                    </label>
+                  </li>
+                </ul>
+              )}
+            </div>
             <button
               type="button"
-              className="hidden items-center rounded-md px-3 py-2 text-sm font-semibold text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black lg:inline-flex"
+              className="inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black lg:hidden"
             >
-              Sort <ChevronDown className="ml-2 h-4 w-4" />
+              OS
+              <ChevronDown className="ml-2 h-4 w-4" />
             </button>
             <button
               type="button"
               className="inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black lg:hidden"
             >
-              Category <ChevronDown className="ml-2 h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              className="inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black lg:hidden"
-            >
-              Color <ChevronDown className="ml-2 h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              className="inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black lg:hidden"
-            >
-              Size <ChevronDown className="ml-2 h-4 w-4" />
+              RAM <ChevronDown className="ml-2 h-4 w-4" />
             </button>
           </div>
         </div>
@@ -111,12 +166,20 @@ const Products = () => {
               </div>
             ))}
           </div>
-          <div className="h-auto rounded-lg px-4 py-2 lg:col-span-9 lg:h-full flex flex-wrap lg:justify-start max-md:justify-center lg:gap-10 gap-4">
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+          <div className="h-auto rounded-t-lg px-4 py-2 lg:col-span-9 lg:h-full flex flex-wrap lg:justify-start max-md:justify-center lg:gap-10 gap-4">
+            <div>
+              {isLoading ? (
+                <p>Loading products...</p>
+              ) : error ? (
+                <p>Error fetching products: {error.message}</p>
+              ) : (
+                <div className="flex justify-center lg:justify-start items-center flex-wrap gap-4">
+                  {products.map((item) => (
+                    <ProductCard key={item.id} product={item} />
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -1,8 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import TestimonialCard from "../components/TestimonialCard";
 const ProductPage = () => {
+  const isLoggin = localStorage.getItem("user");
+  console.log(isLoggin);
+
   const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [productCount, setProductCount] = useState(1);
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const increaseProductCount = () => {
+    setProductCount(productCount + 1);
+  };
+
+  const decreaseProductCount = () => {
+    if (productCount > 1) {
+      setProductCount(productCount - 1);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch("http://localhost:3000/api/dummyproducts");
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const loadScript = (src) => {
     return new Promise((resovle) => {
       const script = document.createElement("script");
@@ -22,6 +57,10 @@ const ProductPage = () => {
 
   const displayRazorpay = async () => {
     try {
+      if (!isLoggin || isLoggin == null) {
+        window.location.replace("/signin");
+        return;
+      }
       await loadScript("https://checkout.razorpay.com/v1/checkout.js");
 
       const options = {
@@ -49,27 +88,7 @@ const ProductPage = () => {
 
   return (
     <div className="mx-auto max-w-7xl px-4 md:px-8 2xl:px-16">
-      <div className="pt-8">
-        <div className="flex items-center">
-          <ol className="flex w-full items-center overflow-hidden">
-            <li className="text-body hover:text-heading px-2.5 text-sm transition duration-200 ease-in first:pl-0 last:pr-0">
-              <a href="#">Home</a>
-            </li>
-            <li className="text-body mt-0.5 text-base">/</li>
-            <li className="text-body hover:text-heading px-2.5 text-sm transition duration-200 ease-in first:pl-0 last:pr-0">
-              <a className="capitalize" href="#">
-                products
-              </a>
-            </li>
-            <li className="text-body mt-0.5 text-base">/</li>
-            <li className="text-body hover:text-heading px-2.5 text-sm transition duration-200 ease-in first:pl-0 last:pr-0">
-              <a className="capitalize" href="#">
-                Apple phones
-              </a>
-            </li>
-          </ol>
-        </div>
-      </div>
+      <div className="pt-8"></div>
       <div className="block grid-cols-9 items-start gap-x-10 pb-10 pt-7 lg:grid lg:pb-14 xl:gap-x-14 2xl:pb-20">
         <div className="col-span-5 grid grid-cols-2 gap-2.5">
           {Array.from({ length: 4 }, (_, i) => (
@@ -88,7 +107,7 @@ const ProductPage = () => {
         <div className="col-span-4 pt-8 lg:pt-0">
           <div className="mb-7 border-b border-gray-300 pb-7">
             <h2 className="text-heading mb-3.5 text-lg font-bold md:text-xl lg:text-2xl 2xl:text-3xl">
-              Apple iPhone 14
+              iPhone 14 Pro
             </h2>
             <p className="text-body text-sm leading-6  lg:text-base lg:leading-8">
               The iPhone 14 is a great option if you're looking for a small,
@@ -104,60 +123,23 @@ const ProductPage = () => {
               <div className="text-heading pr-2 text-base font-bold md:pr-0 md:text-xl lg:pr-2 lg:text-2xl 2xl:pr-0 2xl:text-4xl">
                 $1040.00
               </div>
-              <span className="font-segoe pl-2 text-sm text-gray-400 line-through md:text-base lg:text-lg xl:text-xl">
-                $1500.00
-              </span>
-            </div>
-          </div>
-          <div className="border-b border-gray-300 pb-3  ">
-            <div className="mb-4">
-              <h3 className="text-heading mb-2.5 text-base font-semibold capitalize md:text-lg">
-                Storage
-              </h3>
-              <ul className="colors -mr-3 flex flex-wrap">
-                {["64GB", "128GB", "256GB", "1TB"].map((size) => (
-                  <li
-                    key={size}
-                    className="text-heading mb-2 mr-2 flex h-9 w-9 cursor-pointer items-center justify-center rounded border border-gray-100 p-1 text-xs font-semibold uppercase transition duration-200 ease-in-out hover:border-black md:mb-3 md:mr-3 md:h-11 md:w-11 md:text-sm "
-                  >
-                    {size}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="mb-4 ">
-              <h3 className="text-heading mb-2.5 text-base font-semibold capitalize md:text-lg">
-                color
-              </h3>
-              <ul className="colors -mr-3 flex flex-wrap">
-                {[
-                  "bg-orange-400",
-                  "bg-pink-400",
-                  "bg-violet-600",
-                  "bg-red-500",
-                ].map((color) => (
-                  <li
-                    key={color}
-                    className="text-heading mb-2 mr-2 flex h-9 w-9 cursor-pointer items-center justify-center rounded border border-gray-100 p-1 text-xs font-semibold uppercase transition duration-200 ease-in-out hover:border-black md:mb-3 md:mr-3 md:h-11 md:w-11 md:text-sm"
-                  >
-                    <span className={`block h-full w-full rounded ${color}`} />
-                  </li>
-                ))}
-              </ul>
             </div>
           </div>
           <div className="space-s-4 3xl:pr-48 flex items-center gap-2 border-b border-gray-300 py-8  md:pr-32 lg:pr-12 2xl:pr-32">
             <div className="group flex h-11 flex-shrink-0 items-center justify-between overflow-hidden rounded-md border border-gray-300 md:h-12">
               <button
+                onClick={decreaseProductCount}
                 className="text-heading hover:bg-heading flex h-full w-10 flex-shrink-0 items-center justify-center border-e border-gray-300 transition duration-300 ease-in-out focus:outline-none md:w-12"
-                disabled
               >
                 -
               </button>
               <span className="duration-250 text-heading flex h-full w-12  flex-shrink-0 cursor-default items-center justify-center text-base font-semibold transition-colors ease-in-out  md:w-20 xl:w-24">
-                1
+                {productCount}
               </span>
-              <button className="text-heading hover:bg-heading flex h-full w-10 flex-shrink-0 items-center justify-center border-s border-gray-300 transition duration-300 ease-in-out focus:outline-none md:w-12">
+              <button
+                onClick={increaseProductCount}
+                className="text-heading hover:bg-heading flex h-full w-10 flex-shrink-0 items-center justify-center border-s border-gray-300 transition duration-300 ease-in-out focus:outline-none md:w-12"
+              >
                 +
               </button>
             </div>
@@ -169,12 +151,6 @@ const ProductPage = () => {
             <ul className="space-y-5 pb-1 text-sm">
               <li>
                 <span className="text-heading inline-block pr-2 font-semibold">
-                  SKU:
-                </span>
-                N/A
-              </li>
-              <li>
-                <span className="text-heading inline-block pr-2 font-semibold">
                   OS:
                 </span>
                 <a
@@ -182,6 +158,17 @@ const ProductPage = () => {
                   href="#"
                 >
                   iOS
+                </a>
+              </li>
+              <li className="productTags">
+                <span className="text-heading inline-block pr-2 font-semibold">
+                  RAM:
+                </span>
+                <a
+                  className="hover:text-heading inline-block pr-1.5 transition last:pr-0 hover:underline"
+                  href="#"
+                >
+                  4 GB
                 </a>
               </li>
               <li className="productTags">
@@ -200,7 +187,7 @@ const ProductPage = () => {
           <div className="shadow-sm ">
             <header className="flex cursor-pointer items-center justify-between border-t border-gray-300 py-5 transition-colors md:py-6">
               <h2 className="text-heading pr-2 text-sm font-semibold leading-relaxed md:text-base lg:text-lg">
-                Product Details
+                Additional Information
               </h2>
               <div className="relative flex h-4 w-4 flex-shrink-0 items-center justify-center">
                 <div className="bg-heading h-0.5 w-full rounded-sm" />
@@ -214,13 +201,6 @@ const ProductPage = () => {
                 quickly, so you need not to wait too long for a response!.
               </div>
             </div>
-          </div>
-          <div className="">
-            <header className="flex cursor-pointer items-center justify-between border-t border-gray-300 py-5 transition-colors md:py-6">
-              <h2 className="text-heading pr-2 text-sm font-semibold leading-relaxed md:text-base lg:text-lg">
-                Additional Information
-              </h2>
-            </header>
           </div>
           <div className="">
             <header className="flex cursor-pointer items-center justify-between border-t border-gray-300 py-5 transition-colors md:py-6">

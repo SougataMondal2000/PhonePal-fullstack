@@ -1,13 +1,26 @@
 import { Link } from "react-router-dom";
 import Button from "./Button";
+import { useState } from "react";
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "#why-us", label: "Why Us?" },
-  // { href: "#products", label: "Products" },
   { href: "#contact-us", label: "Contact Us" },
 ];
 
 const Nav = () => {
+  const [loading, setLoading] = useState(true);
+  const user = localStorage.getItem("user");
+
+  const handleLogout = () => {
+    setLoading(true);
+    try {
+      localStorage.removeItem("user");
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
   return (
     <div>
       <header className="px-4 lg:px-10 py-4 z-10 w-full">
@@ -32,12 +45,20 @@ const Nav = () => {
             ))}
           </ul>
           <div className="flex justify-center items-center gap-2 max-md:hidden">
-            <Link to="/signup">
-              <Button label="Sign Up"></Button>
-            </Link>
-            <Link to="/signin">
-              <Button label="Sign In"></Button>
-            </Link>
+            {user && loading ? (
+              <Button onClick={handleLogout} label="Log out"></Button>
+            ) : (
+              !user && (
+                <>
+                  <Link to="/signup">
+                    <Button label="Sign Up"></Button>
+                  </Link>
+                  <Link to="/signin">
+                    <Button label="Sign In"></Button>
+                  </Link>
+                </>
+              )
+            )}
           </div>
           <div className="hidden max-md:block cursor-pointer">
             <img

@@ -13,9 +13,7 @@ const OurChoice = () => {
       </div>
       <div className="w-full flex max-lg:flex-wrap justify-center items-center gap-4 px-4 py-4 lg:px-8">
         <IoIosArrowBack className="w-8 h-auto bg-transparent cursor-pointer max-lg:hidden"/>
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        {/* <ProductCard /> */}
         <IoIosArrowForward className="w-8 h-auto bg-transparent cursor-pointer max-lg:hidden"/>
       </div>
       <div className="flex justify-center items-center pt-4">
